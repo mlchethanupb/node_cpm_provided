@@ -6,6 +6,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
   etsi_its_msgs
+  geometry_msgs
+  sensor_msgs
+  
+  
+
   # Add other necessary dependencies
 )
 
@@ -30,7 +35,9 @@ catkin_package(
   CATKIN_DEPENDS 
   roscpp 
   std_msgs
-  etsi_its_msgs # Add other necessary dependencies
+  etsi_its_msgs
+  geometry_msgs
+  sensor_msgs # Add other necessary dependencies
 )
 
 ## Build the node
@@ -41,7 +48,7 @@ include_directories(
 
 )
 
-add_executable(node_cpm_provided src/cpm_send.cpp)
+add_executable(node_cpm_provided src/cpm_provided.cpp)
 target_link_libraries(  node_cpm_provided 
                         ${catkin_LIBRARIES}
                         etsi_flatbuffers_lib_t )
