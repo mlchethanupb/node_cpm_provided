@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   etsi_its_msgs
   geometry_msgs
   sensor_msgs
+  pdk_ros_msg
 )
 ## Declare a catkin package
 catkin_package(
@@ -17,6 +18,7 @@ catkin_package(
   etsi_its_msgs
   geometry_msgs
   sensor_msgs # Add other necessary dependencies
+  pdk_ros_msg
 )
 
 ## Build the node
