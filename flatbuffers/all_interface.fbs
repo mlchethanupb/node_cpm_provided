@@ -398,7 +398,7 @@ table BasicVehicleContainerLowFrequency {
 
 // CPM
 table CPMessage {
-  header:ItsPduHeader;
+  header:ItsPduHeader (required);
   generation_delta_time:ulong;
   mgmt_container:ManagementContainer;
   cpm_payload:CpmPayload;
@@ -406,16 +406,16 @@ table CPMessage {
 
 table CpmPayload {
   originating_stations_container:OriginatingStationsContainer;
-  //sensor_information_container:SensorInformationContainer;
-  //perception_region_container:PerceptionRegionContainer;
+  sensor_information_container:SensorInformationContainer;
+  perception_region_container:PerceptionRegionContainer;
   perceived_object_container:PerceivedObjectContainer;
 }
 
 table ManagementContainer {
   reference_time:ulong;
-  reference_position:ReferencePosition;
-  //segmentation_info:MessageSegmentationInfo;
-  //message_rate_range:MessageRateRange;
+  reference_position:ReferencePosition (required);
+  segmentation_info:MessageSegmentationInfo;
+  message_rate_range:MessageRateRange;
   station_type:StationType;
 }
 
@@ -430,7 +430,7 @@ table OriginatingStationsContainer {
 }
 
 table OriginatingVehicleContainer {
-  orientation_angle:Wgs84Angle ;
+  orientation_angle:Wgs84Angle (required);
   pitch_angle:CartesianAngle;
   roll_angle:CartesianAngle;
   trailer_dataset:long;

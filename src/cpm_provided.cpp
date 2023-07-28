@@ -12,6 +12,7 @@
 #include <vector>
 #include <cmath>
 
+#define PI 3.14159265358979323846264
 
 // Structure to hold the Euler angles
 struct EulerAngles {
@@ -121,7 +122,7 @@ void construct_CPM_provided(){
 
     cpm.generation_delta_time = 23234;
 
-    cpm.station_type.value = 2;
+    cpm.station_type.value = 5;
 
     int64_t conversion_factor = 1e7; // Adjust this factor based on your desired precision
 
@@ -143,22 +144,22 @@ void construct_CPM_provided(){
     cpm.reference_position.altitude.confidence = 100;
 
     //originating vehicle container 
-    cpm.originatingVehicleContainer.heading.value = euler_angle.roll;
+    cpm.originatingVehicleContainer.heading.value = 360 * euler_angle.yaw * 10 / PI; //* 10 to get in decidegree
     cpm.originatingVehicleContainer.heading.confidence = 100;
 
     cpm.originatingVehicleContainer.speed.value = euler_angle.pitch;
     cpm.originatingVehicleContainer.speed.confidence = 100;
 
-    cpm.originatingVehicleContainer.vehicleOrientationAngle.value = euler_angle.yaw;
-    cpm.originatingVehicleContainer.vehicleOrientationAngle.value = 100;
+    cpm.originatingVehicleContainer.vehicleOrientationAngle.value = 360 * euler_angle.yaw * 10 / PI;
+    cpm.originatingVehicleContainer.vehicleOrientationAngle.confidence = 100;
 
     cpm.has_sensor_information_container = false;
     cpm.has_list_of_perceived_object = true;
 
     cpm.listOfPerceivedObjects.perceivedObjectContainer = std::vector<etsi_its_msgs::PerceivedObject>();
-    //for(auto obj: etsi_prcvd_obj_cntnr ){
-    //   cpm->listOfPerceivedObjects.perceivedObjectContainer.push_back(obj); 
-   // }
+    for(auto obj: etsi_prcvd_obj_cntnr ){
+       cpm.listOfPerceivedObjects.perceivedObjectContainer.push_back(obj); 
+    }
     cpm.numberOfPerceivedObjects = number_of_objects;
 
     pub_cpm_provided.publish(cpm);
@@ -182,12 +183,13 @@ int main(int argc, char** argv)
     pub_cpm_provided = nh.advertise<etsi_its_msgs::CPM>("cpm_provided", 20);
 
     while(ros::ok() == true){
+        ros::spinOnce();
         construct_CPM_provided();
         sleep(0.1);
     }
 
     // ROS main loop
-    ros::spin();
+    //ros::spin();
 
     return 0;
 }
