@@ -79,8 +79,6 @@ void get_prcvd_objs(const pdk_ros_msg::PerceivedObjectContainer::ConstPtr &rosPe
     etsi_prcvd_obj_cntnr.clear();
     auto prcvd_objs = rosPerceivedObjectContainer->perceivedObjects;
 
-
-
     for (auto obj: prcvd_objs){
 
         etsi_its_msgs::PerceivedObject rosObj;
@@ -109,8 +107,6 @@ void get_prcvd_objs(const pdk_ros_msg::PerceivedObjectContainer::ConstPtr &rosPe
 
         etsi_prcvd_obj_cntnr.push_back(rosObj);
     }
-
-
 }
 
 
