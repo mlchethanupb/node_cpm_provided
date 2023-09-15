@@ -11,15 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   pdk_ros_msg
 )
 
+
 ## Declare a catkin package
 catkin_package(
-  CATKIN_DEPENDS 
-  roscpp 
-  std_msgs
-  etsi_its_msgs
-  geometry_msgs
-  sensor_msgs # Add other necessary dependencies
-  pdk_ros_msg
+  CATKIN_DEPENDS roscpp std_msgs etsi_its_msgs geometry_msgs sensor_msgs pdk_ros_msg
 )
 
 ## Build the node
@@ -29,6 +24,7 @@ include_directories(
 )
 
 add_executable(node_cpm_provided src/cpm_provided.cpp)
+add_dependencies(node_cpm_provided etsi_its_msgs_generate_messages_cpp pdk_ros_msg_generate_messages_cpp )
 target_link_libraries(  node_cpm_provided 
                         ${catkin_LIBRARIES}
                      )
