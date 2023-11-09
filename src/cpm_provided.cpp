@@ -65,8 +65,8 @@ void gps_filetered_Callback(const sensor_msgs::NavSatFix::ConstPtr& msg)
 {
   // Access the fields of the received message
   // Example:
-  ROS_INFO("Received GPS Fix: Latitude: %f, Longitude: %f, Altitude: %f", msg->latitude, msg->longitude, msg->altitude);
-
+  printf("Received GPS Fix: Latitude: %f, Longitude: %f, Altitude: %f", msg->latitude, msg->longitude, msg->altitude);
+  std::cout << "Received GPS Fix: " << latitude << longitude << altitude << std::endl;
   latitude = msg->latitude;
   longitude = msg->longitude;
   altitude = msg->altitude;
@@ -114,13 +114,15 @@ void construct_CPM_provided(){
     etsi_its_msgs::CPM cpm;
 
     cpm.its_header.protocol_version = 2;
-    cpm.its_header.station_id = 420;
+    cpm.its_header.station_id = 840;
 
     cpm.generation_delta_time = 23234;
 
     cpm.station_type.value = 5;
 
     int64_t conversion_factor = 1e7; // Adjust this factor based on your desired precision
+
+    std::cout  << "While constructing CPM: " << latitude << longitude << altitude << std::endl;
 
     // Convert latitude and longitude to int64
     int64_t latitude_int = static_cast<int64_t>(latitude * conversion_factor);
@@ -181,7 +183,7 @@ int main(int argc, char** argv)
     while(ros::ok() == true){
         ros::spinOnce();
         construct_CPM_provided();
-        sleep(0.1);
+        sleep(1);
     }
 
     // ROS main loop
